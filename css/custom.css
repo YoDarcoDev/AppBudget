@@ -1,0 +1,30 @@
+#topMenuBtns {
+    position: absolute;
+    right: 20px;
+}
+
+.topMenuBtn {
+    border: none;
+    outline: none;
+    background: transparent;
+    margin: 0 5px;
+    color: #4e73df;
+    -webkit-app-region: no-drag;
+}
+
+#topMenu {
+    /* Empêcher de selectionner les icônes de la fenêtre */
+    -webkit-user-select: none;
+    /* Permet de déplacer la fenêtre */
+    -webkit-app-region: drag;
+}
+
+#prevMonth {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#nextMonth {
+    cursor: pointer;
+    margin-left: 10px;
+}
