@@ -9,7 +9,6 @@ $(() => {
     let dateShowed = document.getElementById("dateShowed");
     dateShowed.innerHTML = mois[selectedDate.getMonth()] + " " + selectedDate.getFullYear();
 
-
     // Gestion des boutons previous et next
     let prevMonth = document.getElementById("prevMonth");
     let nextMonth = document.getElementById("nextMonth");
@@ -65,12 +64,14 @@ loadTableLines = function (date) {
             let cell2 = row.insertCell(1);
             let cell3 = row.insertCell(2);
             let cell4 = row.insertCell(3);
+            let cell5 = row.insertCell(4);
 
             // Injecter le contenu des cellules
             cell1.innerHTML = element.date;
-            cell2.innerHTML = element.montant;
-            cell3.innerHTML = element.info;
-            cell4.innerHTML = '<button id="' + element._id + '" class="btn btn-danger"><i class="fas fa-trash"></i></button>';
+            cell2.innerHTML = element.type;
+            cell3.innerHTML = element.montant;
+            cell4.innerHTML = element.info;
+            cell5.innerHTML = '<button id="' + element._id + '" class="btn btn-danger"><i class="fas fa-trash"></i></button>';
 
             // Gestion du bouton action suppression
             let btn = document.getElementById(element._id);

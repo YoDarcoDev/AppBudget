@@ -26,16 +26,19 @@ const btnAddLigne = document.getElementById("btnSaveLigne");
 // Vérifie si ca existe car on utilise un script partagé et ca ne fonctionnera que sur la page livre.html
 if (btnAddLigne !== null) {
     btnAddLigne.addEventListener('click', () => {
+
         // Inputs formulaire
         const dateVal = document.getElementById("dateLigne");
         const montantVal = document.getElementById("montantLigne");
         const infoVal = document.getElementById("infoLigne");
+        const typeVal = document.getElementById("typeLigne");
 
         // Préparer l'objet pour insertion en BDD
         let objet = {
             date: dateVal.value,
             montant: montantVal.value,
-            info: infoVal.value
+            info: infoVal.value,
+            type: typeVal.value
         }
 
         // Demande au fichier main d'insérer cela en BDD

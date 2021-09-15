@@ -2,8 +2,8 @@ $(() => {
 
     let date = new Date();
     let mois = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
-    let minDate = date.getFullYear() + "-" + mois[date.getMonth()] + "-01"; // 2021-09-01
-    let maxDate = date.getFullYear() + "-" + mois[date.getMonth()] + "-31"; // 2021-09-31
+    let minDate = date.getFullYear() + "-" + mois[date.getMonth()] + "-01";
+    let maxDate = date.getFullYear() + "-" + mois[date.getMonth()] + "-31";
 
     let Datastore = require('nedb');
     let db = new Datastore({filename: 'data.db', autoload: true});
@@ -38,18 +38,16 @@ $(() => {
                     depMois += parseInt(element.montant);
                 }
             }
-
         })
 
         // On affiche les depenses et les revenus de l'année
-        revenusAn.innerHTML = recettesAn + "€";
-        depensesAn.innerHTML = depAn + "€";
-        revenusMois.innerHTML = recettesMois + "€";
+        revenusAn.innerHTML = recettesAn + " €";
+        depensesAn.innerHTML = depAn + " €";
+        revenusMois.innerHTML = recettesMois + " €";
 
         // Calcul pourcentage
         let pourcentage = (depMois * 100) / recettesMois;
         depensesMois.innerHTML = Math.trunc(pourcentage) * -1 + "%";
-        depensesMoisStyle.style.width = pourcentage + "%";
-
+        depensesMoisStyle.style.width = pourcentage + '%';
     });
 })

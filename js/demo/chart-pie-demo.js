@@ -2,16 +2,52 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
+var labels = ["Salaires", "Alimentation", "Factures", "Extra"];
+var data = [];
+
+// Connexion à la BDD
+let Datastore1 = require('nedb');
+let bdd = new Datastore1({filename: 'data.db', autoload: true});
+
+let salaires = 0;
+let alimentation = 0;
+let factures = 0;
+let extra = 0;
+
+// Types de dépenses à l'année
+bdd.find({}, function(err, docs) {
+  docs.forEach(element => {
+    if (element.type === "Salaires") {
+      salaires += parseInt(element.montant);
+    }
+    else if (element.type === "Alimentation") {
+      alimentation += parseInt(element.montant);
+    }
+    else if (element.type === "Factures") {
+      factures += parseInt(element.montant);
+    }
+    else {
+      extra += parseInt(element.montant);
+    }
+  })
+
+  data[0] = salaires;
+  data[1] = alimentation;
+  data[2] = factures;
+  data[3] = extra;
+})
+
+
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Direct", "Referral", "Social"],
+    labels: labels,
     datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      data: data,
+      backgroundColor: ['#4e73df', '#1cc88a', '#c7cc36', '#bd1cc8'],
+      hoverBackgroundColor: ['#2e59d9', '#17a673', '#c7cc36', '#bd1cc8'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },
