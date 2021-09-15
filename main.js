@@ -2,6 +2,12 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const ipc = ipcMain;
 
+// Ajout de fichier
+const fs = require('fs');
+
+// Ouvrir fichier
+const { shell } = require('electron');
+
 
 // CREATION DE LA FENÊTRE
 function createWindow() {
@@ -28,7 +34,7 @@ function createWindow() {
     window.loadFile("index.html")
 
     // Ouvrir la console developer de chrome
-    window.webContents.openDevTools()
+    // window.webContents.openDevTools()
 
     // GESTION DES DEMANDES IPC
     // Réduire Fenêtre
@@ -55,6 +61,44 @@ function createWindow() {
     // Reload la fenêtre après suppression élément tableau
     ipc.on('reload', () => {
         window.reload();
+    })
+
+
+    // Export Pdf
+    ipc.on('exportPdf', () => {
+
+        // Chemin d'export
+        let filepath = path.join(__dirname, './export.pdf');
+
+        // Options du PDF
+        let options = {
+            marginType: 1,
+            pageSize: 'A4',
+            printBackground: true,
+            printSelectionOnly: false,
+            landscape: false
+        }
+
+        // réaliser l'export et manipuler le fichier
+        window.webContents.printToPDF(options).then(data => {
+            fs.writeFile(filepath, data, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+                else  {
+                    console.log("PDF Generated Successfully");
+
+                    // Charger le PDF dans l'application Electron
+                    // window.loadURL(filepath);
+
+                    // Ouvrir l'explorateur de fichier et nous montrer l'emplacement du fichier
+                    shell.showItemInFolder(filepath);
+
+                    // Ouvrir le PDF avec notre lecteur par défaut
+                    // shell.openPath(filepath);
+                }
+            })
+        })
     })
 
     // Insertion en BDD

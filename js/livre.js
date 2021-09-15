@@ -26,6 +26,14 @@ $(() => {
     })
 
     loadTableLines(selectedDate);
+
+
+    // EXPORT PDF
+    const exportPdfBtn = document.getElementById("genPdf");
+    exportPdfBtn.addEventListener('click', () => {
+        ipc.send('exportPdf');
+    })
+
 })
 
 loadTableLines = function (date) {
@@ -69,7 +77,7 @@ loadTableLines = function (date) {
             // Injecter le contenu des cellules
             cell1.innerHTML = element.date;
             cell2.innerHTML = element.type;
-            cell3.innerHTML = element.montant;
+            cell3.innerHTML = element.montant > 0 ? '<span class="badge bg-success text-white">' + element.montant + '</span>' : '<span class="badge bg-danger text-white">' + element.montant + '</span>' ;
             cell4.innerHTML = element.info;
             cell5.innerHTML = '<button id="' + element._id + '" class="btn btn-danger"><i class="fas fa-trash"></i></button>';
 
